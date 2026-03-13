@@ -22,3 +22,11 @@ endif;
 add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 
 // END ENQUEUE PARENT ACTION
+// Ajoute un lien Admin au menu pour les connectés
+add_filter( 'wp_nav_menu_items', 'ajouter_lien_admin', 10, 2 );
+function ajouter_lien_admin( $items, $args ) {
+if (is_user_logged_in()) {
+$items .= '<li class="menu-item"><a href="' . get_admin_url() . '">Admin</a></li>';
+}
+return $items;
+}
